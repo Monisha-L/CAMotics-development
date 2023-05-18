@@ -101,7 +101,7 @@ bool LineCommand::merge(const LineCommand &lc, const PlannerConfig &config,
 
   // Merge feed rates
   if (feed != lc.feed)
-    feed = (feed * length + lc.feed * lc.length) / (length + lc.length);
+    feed = (feed * length + lc.feed * lc.length*1000) / (length + lc.length);
 
   // Merge
   merged.push_back(target);
