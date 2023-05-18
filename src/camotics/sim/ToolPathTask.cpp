@@ -66,7 +66,7 @@ using namespace CAMotics;
 ToolPathTask::ToolPathTask(const Project::Project &project,
                            const GCode::PlannerConfig *config) :
   tools(project.getTools()), units(project.getUnits()),
-  simJSON(project.toString()), controller(pipeline, tools),
+  simJSON(project.toString()), controller(machine, tools),
   path(new GCode::ToolPath(tools)) {
 
   for (unsigned i = 0; i < project.getFileCount(); i++)
@@ -76,17 +76,14 @@ ToolPathTask::ToolPathTask(const Project::Project &project,
   SmartPointer<ostream>::Phony gcodePtr(&gcode);
 
   // Create machine pipeline
-  pipeline.add(new GCode::MachineUnitAdapter);
-  pipeline.add(new GCode::MachineLinearizer);
-
-  // Setup planner
-  if (config) pipeline.add(new GCode::PlannerMachine(*config));
-
-  pipeline.add(new GCode::MoveSink(*path));
+  // TODO load machine configuration, including rapidFeed & maxArcError
+  machine.add(new GCode::MachineUnitAdapter);
+  machine.add(new GCode::MachineLinearizer);
+  machine.add(new GCode::MoveSink(*path));
   if (units != GCode::Units::METRIC)
-    pipeline.add(new GCode::MachineUnitAdapter(GCode::Units::METRIC, units));
-  pipeline.add(new GCode::GCodeMachine(gcodePtr, units));
-  pipeline.add(new GCode::MachineState);
+    machine.add(new GCode::MachineUnitAdapter(GCode::Units::METRIC, units));
+  machine.add(new GCode::GCodeMachine(gcodePtr, units));
+  machine.add(new GCode::MachineState);
 }
 
 
@@ -97,8 +94,7 @@ void ToolPathTask::runTPL(const InputSource &src) {
 #if !defined(CAMOTICS_NO_TPL) && (defined(HAVE_V8) || defined(HAVE_CHAKRA))
   Task::begin("Running TPL");
 
-  tplCtx =
-    new tplang::TPLContext(SmartPointer<ostream>::Phony(&cerr), pipeline);
+  tplCtx = new tplang::TPLContext(SmartPointer<ostream>::Phony(&cerr), machine);
   tplCtx->setSim(JSON::Reader::parseString(simJSON));
 
   // Interpret
@@ -136,7 +132,7 @@ void ToolPathTask::runGCode(const InputSource &source) {
 
   GCode::Interpreter interp(controller);
   interp.push(source);
-  pipeline.start();
+  machine.start();
 
   try {
     while (!Task::shouldQuit() && interp.hasMore() && errors < 32)
@@ -148,7 +144,7 @@ void ToolPathTask::runGCode(const InputSource &source) {
         errors++;
       }
   } catch (const GCode::EndProgram &) {}
-  pipeline.end();
+  machine.end();
 }
 
 

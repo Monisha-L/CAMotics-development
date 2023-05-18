@@ -38,8 +38,3 @@ void PauseCommand::insert(JSON::Sink &sink) const {
 
   sink.insert("pause-type", pauseType);
 }
-
-
-void PauseCommand::write(MachineInterface &machine) const {
-  machine.pause(type);
-}

@@ -29,8 +29,3 @@ void OutputCommand::insert(JSON::Sink &sink) const {
               (String::toLower(PortType(port).toString()), "_", "-"));
   sink.insert("value", value);
 }
-
-
-void OutputCommand::write(MachineInterface &machine) const {
-  machine.output(port, value);
-}

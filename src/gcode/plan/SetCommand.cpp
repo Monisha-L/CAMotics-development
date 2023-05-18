@@ -28,16 +28,3 @@ void SetCommand::insert(JSON::Sink &sink) const {
   sink.insert("name", name);
   sink.insert("value", *value);
 }
-
-
-void SetCommand::write(MachineInterface &machine) const {
-  if (name == "_feed") machine.setFeed(value->getNumber());
-  else if (name == "_tool") machine.changeTool(value->getU32());
-  else if (name == "speed") machine.setSpeed(value->getNumber());
-  else if (name == "message") machine.message(value->getString());
-  else if (name == "spin-mode") ; // TODO machine.setSpinMode()
-  else if (name == "max-rpm")   ; // TODO machine.setSpinMode()
-  else if (name == "line")      ; // TODO machine.setLocation()
-  else if (value->isNumber())
-    machine.set(name, value->getNumber(), Units::METRIC);
-}

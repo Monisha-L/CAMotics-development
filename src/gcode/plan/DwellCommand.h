@@ -36,6 +36,5 @@ namespace GCode {
     double getExitVelocity() const {return 0;}
     double getTime() const {return seconds;}
     void insert(cb::JSON::Sink &sink) const;
-    void write(MachineInterface &machine) const;
   };
 }

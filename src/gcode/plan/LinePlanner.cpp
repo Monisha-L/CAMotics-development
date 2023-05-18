@@ -110,10 +110,11 @@ bool LinePlanner::hasMove() const {
 }
 
 
-const PlannerCommand &LinePlanner::next() {
+uint64_t LinePlanner::next(JSON::Sink &sink) {
   if (!hasMove()) THROW("Planner not ready");
 
   PlannerCommand *cmd = cmds.front();
+  cmd->write(sink);
   out.push_back(cmds.pop_front());
   lastExitVel = cmd->getExitVelocity();
 
@@ -122,21 +123,7 @@ const PlannerCommand &LinePlanner::next() {
     distance += cmd->getLength();
   }
 
-  return *cmd;
-}
-
-
-uint64_t LinePlanner::next(JSON::Sink &sink) {
-  const PlannerCommand &cmd = next();
-  cmd.write(sink);
-  return cmd.getID();
-}
-
-
-uint64_t LinePlanner::next(MachineInterface &machine) {
-  const PlannerCommand &cmd = next();
-  cmd.write(machine);
-  return cmd.getID();
+  return cmd->getID();
 }
 
 

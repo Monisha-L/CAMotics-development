@@ -21,7 +21,6 @@
 #pragma once
 
 #include <gcode/Axes.h>
-#include <gcode/machine/MachineInterface.h>
 
 #include <cbang/StdTypes.h>
 #include <cbang/json/JSON.h>
@@ -75,6 +74,5 @@ namespace GCode {
     using cb::JSON::Serializable::write;
 
     virtual void insert(cb::JSON::Sink &sink) const = 0;
-    virtual void write(MachineInterface &machine) const = 0;
   };
 }

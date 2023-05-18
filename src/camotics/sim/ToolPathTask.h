@@ -57,7 +57,7 @@ namespace CAMotics {
     std::vector<std::string> files;
     std::string simJSON;
 
-    GCode::MachinePipeline pipeline;
+    GCode::MachinePipeline machine;
     GCode::ControllerImpl controller;
 
     unsigned errors = 0;

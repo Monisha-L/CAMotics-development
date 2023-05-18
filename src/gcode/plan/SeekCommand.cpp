@@ -30,8 +30,3 @@ void SeekCommand::insert(JSON::Sink &sink) const {
   sink.insertBoolean("active", active);
   sink.insertBoolean("error", error);
 }
-
-
-void SeekCommand::write(MachineInterface &machine) const {
-  machine.seek(port, active, error);
-}
