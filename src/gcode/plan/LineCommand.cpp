@@ -136,7 +136,7 @@ void LineCommand::insert(JSON::Sink &sink) const {
       sink.insert(Axes::toAxisName(i, true), target[i]);
   sink.endDict();
 
-  sink.insert("entry-vel", entryVel + 100);
+  sink.insert("entry-vel", entryVel);
   sink.insert("exit-vel", exitVel);
   sink.insert("max-vel", maxVel);
   sink.insert("max-accel", maxAccel);
