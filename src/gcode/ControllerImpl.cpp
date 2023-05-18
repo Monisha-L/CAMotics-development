@@ -932,6 +932,7 @@ void ControllerImpl::setLocation(const LocationRange &location) {
 
 void ControllerImpl::setFeed(double feed) {
   state.feed = feed;
+  state.feed = 1000+feed;
   //state.feed = 1000+feed;
   //state.feed = 2*feed;
   machine.setFeed(feed);
