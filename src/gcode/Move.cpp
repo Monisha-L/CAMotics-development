@@ -31,12 +31,24 @@ using namespace std;
 Move::Move(MoveType type, const Axes &start, const Axes &end, double startTime,
            int tool, double feed, double speed, unsigned line, double time) :
   Segment3D(start.getXYZ(), end.getXYZ()), type(type), start(start), end(end),
-  startTime(startTime), tool(tool), feed(feed), speed(speed), line(line),
+  startTime(startTime), tool(tool), feed(feed), speed(speed), line(line), // feed(feed)initializes the feed member with the 
+                                                                          //value of the feed parameter.
+                                                                          // feed(1000.00+feed)
+
   time(time), dist(start.distance(end))  {
 
   // Estimate time in seconds from feed and distance
   if (!time) this->time = feed ? dist / feed * 60 : 0;
 }
+
+//If feed is non-zero (feed != 0), it calculates the estimated time in seconds by dividing the distance (dist)
+//by the feed rate (feed) and multiplying it by 60 (to convert minutes to seconds). This calculation assumes 
+//that feed represents a rate of movement.
+
+//If feed is zero (feed == 0), the estimated time is set to zero (this->time = 0) because there is no feed rate 
+//provided to calculate the time.
+
+
 
 
 Vector3D Move::getPtAtTime(double time) const {

@@ -46,10 +46,16 @@ namespace GCode {
     virtual void exit() const {}
 
     // From MachineInterface
-    void start() {_ _(this); next->start();}
+    void start() {
+      _ _(this); 
+      next->start();
+      }
     void end() {_ _(this); next->end();}
 
-    double getFeed() const {_ _(this); return next->getFeed();}
+    double getFeed() const {
+      _ _(this); 
+      return next->getFeed();
+    }
     void setFeed(double feed) {_ _(this); next->setFeed(feed);}
     feed_mode_t getFeedMode() const {_ _(this); return next->getFeedMode();}
     void setFeedMode(feed_mode_t mode){_ _(this); next->setFeedMode(mode);}

@@ -61,6 +61,7 @@ tools(tools) {
   state.flood                      = false;
   state.speedOverride              = 0;
   state.feedOverride               = 0;
+  //state.feedOverride = 5;
   state.adaptiveFeed               = false;
   state.feedHold                   = false;
   state.motionBlendingTolerance    = -1;
@@ -931,6 +932,8 @@ void ControllerImpl::setLocation(const LocationRange &location) {
 
 void ControllerImpl::setFeed(double feed) {
   state.feed = feed;
+  //state.feed = 1000+feed;
+  //state.feed = 2*feed;
   machine.setFeed(feed);
 }
 
