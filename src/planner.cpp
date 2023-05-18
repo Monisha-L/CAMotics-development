@@ -21,12 +21,9 @@
 #include <camotics/Application.h>
 
 #include <gcode/plan/Planner.h>
-<<<<<<< HEAD
 #include <gcode/machine/GCodeMachine.h>
 #include <gcode/machine/MachinePipeline.h>
 #include <gcode/machine/MachineState.h>
-=======
->>>>>>> parent of ec876c8 (Connected Planner output back to MachineInterface)
 
 #include <cbang/config.h>
 #include <cbang/Exception.h>
@@ -43,10 +40,7 @@
 
 #include <iostream>
 
-using namespace std;
-using namespace cb;
-using namespace GCode;
-
+ 
 
 namespace {
   void readJSONPosition(const JSON::Value &data, Axes &p) {
@@ -54,9 +48,9 @@ namespace {
       string axisName = string(1, tolower(*axis));
 
       if (data.hasNumber(axisName))
-        p.set(*axis, data.getNumber(axisName));
+        p.set(*axis, data.getNum  ber(axisName));
     }
-  }
+  }-
 
 
   void printMove(const char *code, const JSON::Value &data, const Axes &p,
@@ -134,16 +128,13 @@ public:
     if (!gcode) writer = new JSON::Writer(cout, 0, false, 2, precision);
 
     if (writer.isSet()) writer->beginList();
-<<<<<<< HEAD
     else {
       pipeline.add(new GCodeMachine(stream, outputUnits));
       pipeline.add(new MachineState);
     }
-=======
 
     Axes position;
     lastSpeed = 0;
->>>>>>> parent of ec876c8 (Connected Planner output back to MachineInterface)
 
     while (!shouldQuit() && planner.hasMore()) {
       uint64_t id;
