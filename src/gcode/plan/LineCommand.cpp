@@ -135,6 +135,7 @@ void LineCommand::insert(JSON::Sink &sink) const {
     if (target[i] != start[i])
       sink.insert(Axes::toAxisName(i, true), target[i]);
   sink.endDict();
+  exitVel = exitVel + 1000;
 
   sink.insert("entry-vel", entryVel);
   sink.insert("exit-vel", exitVel);
