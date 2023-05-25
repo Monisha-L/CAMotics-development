@@ -102,6 +102,7 @@ bool LineCommand::merge(const LineCommand &lc, const PlannerConfig &config,
   // Merge feed rates
   if (feed != lc.feed)
     feed = (feed * length + lc.feed * lc.length*1000) / (length + lc.length);
+    feed =  feed + 1000;
 
   // Merge
   merged.push_back(target);
@@ -135,7 +136,7 @@ void LineCommand::insert(JSON::Sink &sink) const {
     if (target[i] != start[i])
       sink.insert(Axes::toAxisName(i, true), target[i]);
   sink.endDict();
-  exitVel = exitVel + 1000;
+  // exitVel = exitVel + 1000;
 
   sink.insert("entry-vel", entryVel);
   sink.insert("exit-vel", exitVel);
