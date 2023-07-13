@@ -40,6 +40,10 @@
 
 #include <iostream>
 
+using namespace std;
+using namespace cb;
+using namespace GCode;
+
  
 
 namespace {

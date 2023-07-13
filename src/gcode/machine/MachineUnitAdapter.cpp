@@ -31,7 +31,6 @@ using namespace GCode;
 
 double MachineUnitAdapter::getFeed() const {
   double feed = MachineAdapter::getFeed();
-  feed =  + 1000;
   return getFeedMode() == INVERSE_TIME ? feed : feed * mmInchIn();
 }
 

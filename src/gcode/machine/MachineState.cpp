@@ -61,8 +61,8 @@ void MachineState::end() {
 
 
 void MachineState::setFeed(double feed) {
-  //this->feed = feed;
-   this->feed = 1000+feed;
+  this->feed = feed;
+   //this->feed = 1000+feed;
   // this->feed = 5*feed;
   set("_feed", feed, METRIC);
 } 
