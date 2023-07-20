@@ -324,7 +324,7 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
       switch (word->getType()) {
       case 'F':
         wordPriority = 3;
-        if (priority == 3) controller.setFeed(word->getValue());
+        if (priority == 3) controller.setFeed(word->getValue()*2.0);
         break;
 
       case 'S':
