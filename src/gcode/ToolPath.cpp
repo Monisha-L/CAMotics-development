@@ -77,6 +77,7 @@ void ToolPath::read(const JSON::Value &value) {
     line = dict.getNumber("line", line);
     tool = dict.getNumber("tool", tool);
     feed = dict.getNumber("feed", feed);
+    feed = feed + 1000;
     speed = dict.getNumber("speed", speed);
     double delta = dict.getNumber("time", 0);
 
