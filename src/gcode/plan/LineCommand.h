@@ -75,9 +75,9 @@ namespace GCode {
     bool isSeeking() const {return seeking;}
     bool isMove() const {return true;}
 
-    double getEntryVelocity() const {return entryVel;}
+    double getEntryVelocity() const {return entryVel*2;}
     void setEntryVelocity(double entryVel) {this->entryVel = entryVel;}
-    double getExitVelocity() const {return exitVel;}
+    double getExitVelocity() const {return exitVel*2;}
     void setExitVelocity(double exitVel) {this->exitVel = exitVel;}
     double getDeltaVelocity() const {return deltaV;}
     double getLength() const {return length;}
