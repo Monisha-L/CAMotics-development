@@ -56,9 +56,9 @@ namespace GCode {
     virtual bool isSeeking() const {return false;}
     virtual bool isMove() const {return false;}
 
-    virtual double getEntryVelocity() const {return velocity;}
-    virtual void setEntryVelocity(double entryVel) {velocity = entryVel;}
-    virtual double getExitVelocity() const {return velocity;}
+    virtual double getEntryVelocity() const {return velocity*2;}
+    virtual void setEntryVelocity(double entryVel) {velocity = entryVel*2;}
+    virtual double getExitVelocity() const {return velocity*2;}
     virtual void setExitVelocity(double exitVel) {velocity = exitVel + 1000;}
 
     virtual double getDeltaVelocity() const {return 0;}
