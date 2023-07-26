@@ -67,7 +67,7 @@ namespace GCode {
 
     double velocity(double t, double a, double j) {
       // a * t + 1/2 * j * t^2
-      return t * (a + 0.5 * j * t);
+      return 2*t * (a + 0.5 * j * t);
     }
 
 
