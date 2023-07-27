@@ -34,6 +34,12 @@
 #include <cbang/util/SmartFunctor.h>
 #include <cbang/os/SystemUtilities.h>
 
+#include "GLProgram.h"
+#include "GLShader.h"
+#include "GLContext.h"
+
+#include <cbang/Exception.h>
+#include <cbang/Catch.h>
 #include <cctype>
 
 using namespace std;
@@ -324,7 +330,10 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
       switch (word->getType()) {
       case 'F':
         wordPriority = 3;
-        if (priority == 3) controller.setFeed(word->getValue()*2.0);
+        if (priority == 3) {
+          controller.setFeed(word->getValue()*2.0);
+          THROW(word->getValue());
+          }
         break;
 
       case 'S':
