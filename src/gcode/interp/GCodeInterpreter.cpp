@@ -21,6 +21,9 @@
 #include "GCodeInterpreter.h"
 
 #include <gcode/Codes.h>
+#include <iostream>
+#include <fstream>
+
 
 #include <gcode/ast/Assign.h>
 #include <gcode/ast/Word.h>
@@ -45,6 +48,10 @@
 using namespace std;
 using namespace cb;
 using namespace GCode;
+
+
+ofstream Myfile("log.txt");
+Myfile << word->getValue();
 
 
 GCodeInterpreter::GCodeInterpreter(Controller &controller) :
