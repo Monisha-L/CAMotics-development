@@ -52,6 +52,7 @@ using namespace GCode;
 
 ofstream Myfile("log.txt");
 Myfile << word->getValue();
+LOG_WARNING(word->getCol()<<"Custom log:");
 
 
 GCodeInterpreter::GCodeInterpreter(Controller &controller) :
@@ -65,7 +66,7 @@ void GCodeInterpreter::setReference(address_t addr, double value) {
 
 
 void GCodeInterpreter::setReference(const string &name, double value) {
-  LOG_DEBUG(3, "Set global variable #<" << name << "> = " << value);
+  LOG_DEBUG(3, "Set global variable #<" << name << "fd> = " << value);
   controller.set(canonical(name), value);
 }
 
@@ -339,6 +340,7 @@ void GCodeInterpreter::operator()(const SmartPointer<Block> &block) {
         wordPriority = 3;
         if (priority == 3) {
           controller.setFeed(word->getValue()*2.0);
+          LOG_WARNING(word->getCol()<<"Custom log:");
           THROW(word->getValue());
           }
         break;
