@@ -77,7 +77,7 @@ void ToolPath::read(const JSON::Value &value) {
     line = dict.getNumber("line", line);
     tool = dict.getNumber("tool", tool);
     feed = dict.getNumber("feed", feed);
-    feed = feed + 1000;
+    feed = feed*2.0;
     speed = dict.getNumber("speed", speed);
     double delta = dict.getNumber("time", 0);
 
@@ -123,7 +123,7 @@ void ToolPath::write(JSON::Sink &sink) const {
 
     // Feed
     if (feed != move.getFeed())
-      sink.insert("feed", feed = move.getFeed());
+      sink.insert("feed", feed = move.getFeed()*2.0);
 
     // Speed
     if (speed != move.getSpeed())

@@ -57,8 +57,8 @@ namespace GCode {
     void start();
     void end();
 
-    double getFeed() const {return feed;}
-    void setFeed(double feed);
+    double getFeed() const {return feed*2.0;}
+    void setFeed(double feed*2.0);
     feed_mode_t getFeedMode() const {return feedMode;}
     void setFeedMode(feed_mode_t feedMode){this->feedMode = feedMode;}
 
